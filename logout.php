@@ -6,5 +6,5 @@ if (isset($_SESSION['username'])) {
     unset($_SESSION['username']);
 }
 
-header("Location: welcome.php");
+header("Location: login.php");
 die;

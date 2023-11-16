@@ -1,65 +1,128 @@
 /* POPPINS FONT */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
-*{
-    font-family: 'Poppins', sans-serif;
-    padding: 0 0 0 0;
-    margin: 0 0 0 0;
+
+* {
+  font-family: 'Poppins', sans-serif;
+  padding: 0 0 0 0;
+  margin: 0 0 0 0;
 }
 
 /***** HomePage css style *****/
 
-  
-  .carousel-caption {
-    color: white;
+
+.carousel-caption {
+  color: white;
+}
+
+#c-button {
+  background-color: #34713e;
+  border-color: #34713e;
+  color: white;
+}
+
+footer {
+  background-color: #445D48;
+  color: white;
+}
+
+
+.navbar .navbar-brand, .navbar .nav-link {
+  color: white;
+}
+
+.navbar {
+  background: #445D48;
+  color: white;
+
+}
+
+.navbar-shadow {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.c-item {
+  height: 480px;
+
+}
+
+.c-img {
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.6);
+}
+
+.overview {
+  height: 300px;
+  background-color: gray;
+}
+
+.c-card {
+  transition: all 0.3s;
+}
+
+.c-card:hover {
+  transform: scale(1.05);
+
+}
+
+/***** Profile *****/
+#profile-body {
+  background-color: #4d6952;
+}
+
+.profile-card {
+  width: 350px;
+  padding: 20px;
+  border: 1px solid #cccccc;
+  border-radius: 20px;
+
+
+}
+
+.button-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.button-container .btn {
+  margin-right: 10px;
+  width: 120px;
+  height: 40px;
+}
+
+.profile-card h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #445D48;
+}
+
+.profile-card .profile-section {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.profile-card .profile-section img {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 10px;
+}
+
+.profile-card .profile-section h5 {
+  margin-bottom: 5px;
+  color: #445D48;
+}
+
+.profile-card .profile-section p {
+  margin-bottom: 0;
+  color: #445D48;
+}
+
+
+@media (min-width: 992px) {
+  .dropdown:hover>.dropdown-menu {
+    display: block;
+    margin-top: 0;
   }
-  
-  #c-button {
-    background-color: #34713e;
-    border-color: #34713e;
-    color: white;
-  }
-  
-  footer {
-    background-color: #445D48;
-    color: white;
-  }
-
-
-.navbar .navbar-brand,.navbar .nav-link {
-    color: white;
-  }
-  
-.navbar{
-    background: #445D48;
-    color: white;
-
-}
-
-.c-item{
-    height: 480px;
-
-}
-.c-img{
-    height: 100%;
-    object-fit: cover;
-    filter: brightness(0.6);
-}
-
-.overview{
-    height: 300px;
-    background-color: gray;
-}
-.card{
-    transition: all 0.3s;
-}
-.card:hover{
-    transform: scale(1.05);
-
-}
-
-@media (min-width: 992px){
-    .dropdown:hover > .dropdown-menu {
-        display: block;
-        margin-top: 0;
-    }
 }

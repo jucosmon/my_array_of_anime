@@ -28,7 +28,8 @@ $user_data = check_login($conn);
 
   <nav class="navbar navbar-expand-lg fixed-top">
     <div class="container">
-      <a class="navbar-brand text-uppercase" href="#"><i class="fa-solid fa-layer-group" style="color: #ffffff;"></i> My
+      <a class="navbar-brand text-uppercase" href="index.php"><i class="fa-solid fa-layer-group"
+          style="color: #ffffff;"></i> My
         Array of Anime</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
         aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -38,16 +39,16 @@ $user_data = check_login($conn);
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
           <li class="nav-item">
-            <a class="nav-link " href="#trending">Trending</a>
+            <a class="nav-link" href="index.php#trending">Trending</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link " href="#recommendations">Recommendations</a>
+            <a class="nav-link " href="index.php#recommendations">Recommendations</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link " href="#facts">Facts</a>
+            <a class="nav-link " href="index.php#facts">Facts</a>
           </li>
           <li class="nav-item ">
-            <a class="nav-link" href="#">About</a>
+            <a class="nav-link" href="index.php#">About</a>
           </li>
         </ul>
 
@@ -73,6 +74,15 @@ $user_data = check_login($conn);
                 <hr class="dropdown-divider">
               </li>
               <li><a class="dropdown-item" href="#">Favorites</a></li>
+            </ul>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <i class="fa-solid fa-user" style="color: #ffffff;"></i>
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="profile.php">Profile</a></li>
+              <li><a class="dropdown-item" href="logout.php">Log out</a></li>
             </ul>
           </li>
         </ul>
@@ -160,7 +170,7 @@ $user_data = check_login($conn);
       <div class="container">
         <div class="row gy-3">
           <div class="col-lg-4">
-            <div class="card h-100">
+            <div class="card h-100 c-card">
               <img src=" images/header4.jpg" class="card-img-top" alt="...">
               <div class="card-body">
                 <h5 class="card-title">FairyTale</h5>
@@ -173,7 +183,7 @@ $user_data = check_login($conn);
             </div>
           </div>
           <div class="col-lg-4">
-            <div class="card  h-100">
+            <div class="card  h-100 c-card">
               <img src=" images/header2.jpg" class="card-img-top" alt="...">
               <div class="card-body">
                 <h5 class="card-title">One Piece</h5>
@@ -186,9 +196,9 @@ $user_data = check_login($conn);
             </div>
 
           </div>
-          <div class="col-lg">
-            <div class="card"">
-            <img src=" images/header3.jpg" class="card-img-top" alt="...">
+          <div class="col-lg-4">
+            <div class="card h-100 c-card">
+              <img src=" images/header3.jpg" class="card-img-top" alt="...">
               <div class="card-body">
                 <h5 class="card-title">Naruto</h5>
                 <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Possimus aspernatur dolor
@@ -209,9 +219,9 @@ $user_data = check_login($conn);
       <h2 class="text-center my-5">Recommendations</h2>
       <div class="container">
         <div class="row">
-          <div class="col-lg">
-            <div class="card"">
-            <img src=" images/header4.jpg" class="card-img-top" alt="...">
+          <div class="col-lg-4">
+            <div class="card h-100 c-card">
+              <img src=" images/header4.jpg" class="card-img-top" alt="...">
               <div class="card-body">
                 <h5 class="card-title">FairyTale</h5>
                 <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Possimus aspernatur dolor
@@ -222,9 +232,9 @@ $user_data = check_login($conn);
               </div>
             </div>
           </div>
-          <div class="col-lg">
-            <div class="card"">
-            <img src=" images/header2.jpg" class="card-img-top" alt="...">
+          <div class="col-lg-4">
+            <div class="card h-100 c-card">
+              <img src=" images/header2.jpg" class="card-img-top" alt="...">
               <div class="card-body">
                 <h5 class="card-title">One Piece</h5>
                 <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Possimus aspernatur dolor
@@ -236,9 +246,9 @@ $user_data = check_login($conn);
             </div>
 
           </div>
-          <div class="col-lg">
-            <div class="card"">
-            <img src=" images/header3.jpg" class="card-img-top" alt="...">
+          <div class="col-lg-4">
+            <div class="card h-100 c-card">
+              <img src=" images/header3.jpg" class="card-img-top" alt="...">
               <div class="card-body">
                 <h5 class="card-title">Naruto</h5>
                 <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Possimus aspernatur dolor
