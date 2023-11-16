@@ -4,6 +4,7 @@ include("db_connection.php"); // Include the file containing the database connec
 include("functions.php");
 
 $user_data = check_login($conn);
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -16,15 +17,19 @@ $user_data = check_login($conn);
   <link rel="stylesheet" href="bootstrap/bootstrap-5.3.2/css/bootstrap.min.css" />
   <script src="bootstrap/bootstrap-5.3.2/js/bootstrap.bundle.min.js"></script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+    integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
 
   <title>Home Page</title>
 </head>
 
 <body>
 
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+  <nav class="navbar navbar-expand-lg fixed-top">
     <div class="container">
-      <a class="navbar-brand text-uppercase" href="#">My Array of Anime</a>
+      <a class="navbar-brand text-uppercase" href="#"><i class="fa-solid fa-layer-group" style="color: #ffffff;"></i> My
+        Array of Anime</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
         aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -51,9 +56,14 @@ $user_data = check_login($conn);
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ms-auto">
 
+
+          <form class="d-flex" role="search">
+            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success" type="submit">Search</button>
+          </form>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Watchlist
+              <i class="fa-solid fa-bookmark" style="color: #f2f2f2;"></i>
             </a>
             <ul class="dropdown-menu">
               <li><a class="dropdown-item" href="#">To Watch</a></li>
@@ -65,10 +75,6 @@ $user_data = check_login($conn);
               <li><a class="dropdown-item" href="#">Favorites</a></li>
             </ul>
           </li>
-          <form class="d-flex" role="search">
-            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success" type="submit">Search</button>
-          </form>
         </ul>
 
       </div>
@@ -97,7 +103,7 @@ $user_data = check_login($conn);
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Save changes</button>
+            <button type="button" class="btn btn-primary" id="c-button">Save changes</button>
           </div>
         </div>
       </div>
@@ -115,7 +121,7 @@ $user_data = check_login($conn);
           <div class="carousel-caption top-0 mt-4">
             <p class="fs-3 mt-5 text-uppercase">Trending</p>
             <h1 class="display-1 fw-bolder text-capitalize">Attack on Titan</h1>
-            <button class="btn btn-primary px-4 py-2 fs-5 mt-5" data-bs-toggle="modal"
+            <button class="btn btn-primary px-4 py-2 fs-5 mt-5" id="c-button" data-bs-toggle="modal"
               data-bs-target="#watchlist-modal">Add to Watchlist</button>
           </div>
         </div>
@@ -124,7 +130,7 @@ $user_data = check_login($conn);
           <div class="carousel-caption top-0 mt-4">
             <p class="fs-3 mt-5 text-uppercase">Trending</p>
             <h1 class="display-1 fw-bolder text-capitalize">One Piece</h1>
-            <button class="btn btn-primary px-4 py-2 fs-5 mt-5" data-bs-toggle="modal"
+            <button class="btn btn-primary px-4 py-2 fs-5 mt-5" id="c-button" data-bs-toggle="modal"
               data-bs-target="#watchlist-modal">Add to Watchlist</button>
           </div>
         </div>
@@ -133,7 +139,7 @@ $user_data = check_login($conn);
           <div class="carousel-caption top-0 mt-4">
             <p class="fs-3 mt-5 text-uppercase">Trending</p>
             <h1 class="display-1 fw-bolder text-capitalize">Naruto</h1>
-            <button class="btn btn-primary px-4 py-2 fs-5 mt-5" data-bs-toggle="modal"
+            <button class="btn btn-primary px-4 py-2 fs-5 mt-5" id="c-button" data-bs-toggle="modal"
               data-bs-target="#watchlist-modal">Add to Watchlist</button>
           </div>
         </div>
@@ -152,27 +158,29 @@ $user_data = check_login($conn);
     <section id="trending" class="pt-md-5">
       <h2 class="text-center my-5">Trending</h2>
       <div class="container">
-        <div class="row">
-          <div class="col-lg">
-            <div class="card"">
-            <img src=" images/header4.jpg" class="card-img-top" alt="...">
+        <div class="row gy-3">
+          <div class="col-lg-4">
+            <div class="card h-100">
+              <img src=" images/header4.jpg" class="card-img-top" alt="...">
               <div class="card-body">
                 <h5 class="card-title">FairyTale</h5>
                 <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Possimus aspernatur dolor
                   sequi sit nisi fuga laborum dignissimos.</p>
-                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#watchlist-modal">Add to
+                <button class="btn btn-primary" id="c-button" data-bs-toggle="modal"
+                  data-bs-target="#watchlist-modal">Add to
                   Watchlist</button>
               </div>
             </div>
           </div>
-          <div class="col-lg">
-            <div class="card"">
-            <img src=" images/header2.jpg" class="card-img-top" alt="...">
+          <div class="col-lg-4">
+            <div class="card  h-100">
+              <img src=" images/header2.jpg" class="card-img-top" alt="...">
               <div class="card-body">
                 <h5 class="card-title">One Piece</h5>
                 <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Possimus aspernatur dolor
                   sequi sit nisi fuga laborum dignissimos.</p>
-                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#watchlist-modal">Add to
+                <button class="btn btn-primary" id="c-button" data-bs-toggle="modal"
+                  data-bs-target="#watchlist-modal">Add to
                   Watchlist</button>
               </div>
             </div>
@@ -185,7 +193,8 @@ $user_data = check_login($conn);
                 <h5 class="card-title">Naruto</h5>
                 <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Possimus aspernatur dolor
                   sequi sit nisi fuga laborum dignissimos.</p>
-                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#watchlist-modal">Add to
+                <button class="btn btn-primary" id="c-button" data-bs-toggle="modal"
+                  data-bs-target="#watchlist-modal">Add to
                   Watchlist</button>
               </div>
             </div>
@@ -207,7 +216,8 @@ $user_data = check_login($conn);
                 <h5 class="card-title">FairyTale</h5>
                 <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Possimus aspernatur dolor
                   sequi sit nisi fuga laborum dignissimos.</p>
-                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#watchlist-modal">Add to
+                <button class="btn btn-primary" id="c-button" data-bs-toggle="modal"
+                  data-bs-target="#watchlist-modal">Add to
                   Watchlist</button>
               </div>
             </div>
@@ -219,7 +229,8 @@ $user_data = check_login($conn);
                 <h5 class="card-title">One Piece</h5>
                 <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Possimus aspernatur dolor
                   sequi sit nisi fuga laborum dignissimos.</p>
-                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#watchlist-modal">Add to
+                <button class="btn btn-primary" id="c-button" data-bs-toggle="modal"
+                  data-bs-target="#watchlist-modal">Add to
                   Watchlist</button>
               </div>
             </div>
@@ -232,7 +243,8 @@ $user_data = check_login($conn);
                 <h5 class="card-title">Naruto</h5>
                 <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Possimus aspernatur dolor
                   sequi sit nisi fuga laborum dignissimos.</p>
-                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#watchlist-modal">Add to
+                <button class="btn btn-primary" id="c-button" data-bs-toggle="modal"
+                  data-bs-target="#watchlist-modal">Add to
                   Watchlist</button>
               </div>
             </div>
@@ -250,8 +262,8 @@ $user_data = check_login($conn);
         <div class="accordion w-75 mx-auto" id="accordionExample">
           <div class="accordion-item">
             <h2 class="accordion-header" id="headingOne">
-              <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne"
-                aria-expanded="true" aria-controls="collapseOne">
+              <button class="accordion-button" id="c-button" type="button" data-bs-toggle="collapse"
+                data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                 Accordion Item #1
               </button>
             </h2>
@@ -268,7 +280,7 @@ $user_data = check_login($conn);
           </div>
           <div class="accordion-item">
             <h2 class="accordion-header" id="headingTwo">
-              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+              <button class="accordion-button collapsed" id="c-button" type="button" data-bs-toggle="collapse"
                 data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
                 Accordion Item #2
               </button>
@@ -286,7 +298,7 @@ $user_data = check_login($conn);
           </div>
           <div class="accordion-item">
             <h2 class="accordion-header" id="headingThree">
-              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+              <button class="accordion-button collapsed" id="c-button" type="button" data-bs-toggle="collapse"
                 data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
                 Accordion Item #3
               </button>
@@ -327,7 +339,7 @@ $user_data = check_login($conn);
 -->
   </main>
 
-  <footer class="bg-dark py-5 mt-5">
+  <footer class=" py-5 mt-5">
     <div class="container text-light text-center">
       <p class="display-6 mb-4">
         My Array of Anime
