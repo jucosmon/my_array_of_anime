@@ -1,7 +1,7 @@
 <?php
 
 // Checks if the user is logged in using a session variable
-function check_login($con)
+function check_login($conn)
 {
     // Checks if 'username' is set in the session
     if (isset($_SESSION['username'])) {
@@ -13,7 +13,7 @@ function check_login($con)
         $query = "SELECT * FROM users WHERE username = '$id' LIMIT 1";
 
         // Executes the query using the provided database connection
-        $result = mysqli_query($con, $query);
+        $result = mysqli_query($conn, $query);
 
         // If query executes successfully and returns at least one row
         if ($result && mysqli_num_rows($result) > 0) {

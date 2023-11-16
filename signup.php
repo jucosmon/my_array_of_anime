@@ -65,7 +65,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
       <div class="row">
         <div class="col-md-6 side-image">
           <!-------------      image     ------------->
-          <img src="images/array.png" alt="" />
+          <img class="logo-img" src="images/array.png" alt="" />
           <div class="text">
             <p>My Arrray of Anime <i>Strawberry-1</i></p>
           </div>

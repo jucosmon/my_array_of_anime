@@ -5,6 +5,8 @@
     padding: 0 0 0 0;
     margin: 0 0 0 0;
 }
+
+/***** Sign up and Sign custom css style *****/
 .wrapper{
     background: #445D48;
     padding: 0 20px 0 20px;
@@ -59,7 +61,7 @@ i{
   width: 330px;
   box-sizing: border-box;
 }
-img{
+.logo-img{
     width: 35px;
     position: absolute;
     top: 30px;
@@ -149,7 +151,7 @@ span a:hover{
     .side-image{
         border-radius: 10px 10px 0 0;
     }
-    img{
+    .logo-img{
         width: 35px;
         position: absolute;
         top: 20px;
@@ -172,3 +174,4 @@ span a:hover{
         border: none;
     }
 }
+
