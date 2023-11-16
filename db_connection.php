@@ -51,7 +51,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $sqlInsert = "INSERT INTO users (username, password, date_of_birth) VALUES ('$enteredUsername', '$enteredPassword', '$enteredDateOfBirth')";
 
     if ($conn->query($sqlInsert) === TRUE) {
-        echo "New record created successfully<br>";
+        echo "New record created successfully<br>"; 
+        header("Location: login.html"); 
+        exit(); // make sure there are no other executions
     } else {
         echo "Error: " . $sqlInsert . "<br>" . $conn->error;
     }
