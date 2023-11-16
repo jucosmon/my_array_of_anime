@@ -25,23 +25,24 @@
           <div class="col-md-6 right">
             <div class="input-box">
               <header>Create Account</header>
-              <div class="input-field">
-                <input
+              <form action="db_connection.php" method="post">
+                <div class="input-field">
+                  <input
                   type="text"
                   class="input"
+                  name="username"
                   id="username"
                   required=""
                   autocomplete="off"
-                />
-                <label for="username">Username</label>
-              </div>
-              <form action="">
+                  />  
+                  <label for="username">Username</label>
+                </div>
                 <div class="input-field">
-                  <input type="password" class="input" id="pass" required="" />
+                  <input type="password" class="input" name="pass" id="pass" required="" />
                   <label for="pass">Password</label>
                 </div>
                 <div class="input-field">
-                  <input type="date" class="input" id="date" required="" />
+                  <input type="date" class="input" name="date" id="date" required="" />
                   <label for="date">Birthday</label>
                 </div>
                 <div class="input-field">
