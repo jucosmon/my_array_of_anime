@@ -168,6 +168,6 @@ span a:hover{
     }
 
     .right{
-        border-right: 0;
+        border: none;
     }
 }
