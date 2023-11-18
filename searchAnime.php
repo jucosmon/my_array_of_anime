@@ -7,17 +7,13 @@
 
 <body>
     <h1>Anime Search</h1>
-    <form method="GET">
-        <input type="text" name="title" placeholder="Enter anime title">
-        <button type="submit">Search</button>
-    </form>
 
     <h2>Search Results:</h2>
     <div id="results-container">
         <?php
         // Check if the form has been submitted
-        if (isset($_GET['title'])) {
-            $animeTitle = $_GET['title'];
+        if (isset($_GET['searchname'])) {
+            $animeTitle = $_GET['searchname'];
             $animeListUrl = 'https://api.jikan.moe/v4/anime';
             $animeListResponse = file_get_contents($animeListUrl);
             $animeList = json_decode($animeListResponse, true);

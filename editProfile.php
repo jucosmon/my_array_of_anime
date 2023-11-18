@@ -26,9 +26,9 @@ $user_data = check_login($conn);
 </head>
 
 <body id="profile-body">
-    <nav class="navbar navbar-expand-lg fixed-top navbar-shadow">
+    <nav class="navbar navbar-expand-lg fixed-top">
         <div class="container">
-            <a class="navbar-brand text-uppercase" href="index.php"><i class="fa-solid fa-layer-group"
+            <a class="navbar-brand text-uppercase active" href="index.php"><i class="fa-solid fa-layer-group"
                     style="color: #ffffff;"></i> My
                 Array of Anime</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
@@ -44,11 +44,8 @@ $user_data = check_login($conn);
                     <li class="nav-item">
                         <a class="nav-link " href="index.php#recommendations">Recommendations</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link " href="index.php#facts">Facts</a>
-                    </li>
                     <li class="nav-item ">
-                        <a class="nav-link" href="index.php#">About</a>
+                        <a class="nav-link" href="index.php#about">About</a>
                     </li>
                 </ul>
 
@@ -58,9 +55,11 @@ $user_data = check_login($conn);
                 <ul class="navbar-nav ms-auto">
 
 
-                    <form class="d-flex" role="search">
-                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                        <button class="btn btn-outline-success" type="submit">Search</button>
+                    <form class="d-flex" role="search" action="searchAnime.php" method="GET">
+                        <input class="form-control me-2" name="searchname" type="search" placeholder="Search"
+                            aria-label="Search" required>
+                        <button class="btn btn-outline-success" type="submit"><i class="fa-solid fa-magnifying-glass"
+                                style="color: #ffffff;"></i></button>
                     </form>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
@@ -68,13 +67,13 @@ $user_data = check_login($conn);
                             <i class="fa-solid fa-bookmark" style="color: #f2f2f2;"></i>
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">To Watch</a></li>
-                            <li><a class="dropdown-item" href="#">In Progress</a></li>
-                            <li><a class="dropdown-item" href="#">Finished</a></li>
+                            <li><a class="dropdown-item" href="towatchlist.php">To Watch</a></li>
+                            <li><a class="dropdown-item" href="ongoingList.php">In Progress</a></li>
+                            <li><a class="dropdown-item" href="finishedList.php">Finished</a></li>
                             <li>
                                 <hr class="dropdown-divider">
                             </li>
-                            <li><a class="dropdown-item" href="#">Favorites</a></li>
+                            <li><a class="dropdown-item" href="favorites.php">Favorites</a></li>
                         </ul>
                     </li>
                     <li class="nav-item dropdown">

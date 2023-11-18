@@ -120,8 +120,9 @@ foreach ($recData['data'] as $recommendation) {
         <ul class="navbar-nav ms-auto">
 
 
-          <form class="d-flex" role="search">
-            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+          <form class="d-flex" role="search" action="searchAnime.php" method="GET">
+            <input class="form-control me-2" name="searchname" type="search" placeholder="Search" aria-label="Search"
+              required>
             <button class="btn btn-outline-success" type="submit"><i class="fa-solid fa-magnifying-glass"
                 style="color: #ffffff;"></i></button>
           </form>
@@ -130,13 +131,13 @@ foreach ($recData['data'] as $recommendation) {
               <i class="fa-solid fa-bookmark" style="color: #f2f2f2;"></i>
             </a>
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="#">To Watch</a></li>
-              <li><a class="dropdown-item" href="#">In Progress</a></li>
-              <li><a class="dropdown-item" href="#">Finished</a></li>
+              <li><a class="dropdown-item" href="towatchlist.php">To Watch</a></li>
+              <li><a class="dropdown-item" href="ongoingList.php">In Progress</a></li>
+              <li><a class="dropdown-item" href="finishedList.php">Finished</a></li>
               <li>
                 <hr class="dropdown-divider">
               </li>
-              <li><a class="dropdown-item" href="#">Favorites</a></li>
+              <li><a class="dropdown-item" href="favorites.php">Favorites</a></li>
             </ul>
           </li>
           <li class="nav-item dropdown">

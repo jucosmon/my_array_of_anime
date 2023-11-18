@@ -1,12 +1,3 @@
-<?php
-session_start();
-include("db_connection.php"); // Include the file containing the database connection
-include("functions.php");
-
-$user_data = check_login($conn);
-?>
-
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -22,10 +13,10 @@ $user_data = check_login($conn);
         integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-    <title>Profile</title>
+    <title>Home Page</title>
 </head>
 
-<body id="profile-body">
+<body>
     <nav class="navbar navbar-expand-lg fixed-top">
         <div class="container">
             <a class="navbar-brand text-uppercase active" href="index.php"><i class="fa-solid fa-layer-group"
@@ -92,32 +83,36 @@ $user_data = check_login($conn);
         </div>
     </nav>
     <main>
+        <div class="container-fluid d-flex justify-content-center my-lg-5" style=" height: 100%; margin-top: 10%">
+            <div class="container-fluid my-5 ">
+                <div class=" card text-center">
+                    <div class="card-header">
+                        <ul class="nav nav-tabs card-header-tabs">
+                            <li class="nav-item">
+                                <a class="nav-link" href="favorites.php"><i class="fa-solid fa-star"
+                                        style="color: #455f50;"></i></a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link " href="towatchlist.php">To Watch</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="ongoingList.php">In Progress</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link active" aria-current="true" href="finishedList.php">Finished</a>
+                            </li>
 
-        <div class="d-flex justify-content-center align-items-center" style="min-height: 100vh;">
-            <div class="card profile-card">
-                <h2>My Profile</h2>
-                <div class="profile-section">
-                    <img src="images/luffy.jpg" alt="Profile Picture">
-                    <h5>
-                        <?php echo $user_data['username']; ?>
-                    </h5>
-                    <p>User</p>
-                </div>
-                <div class="card-body">
-                    <p class="card-text">Birthday:
-                        <?php echo $user_data['date_of_birth']; ?>
-                    </p>
-                    <div class="button-container">
-                        <a href="editProfile.php" class="btn btn-secondary" id="c-button">Edit</a>
-                        <a href="delete.php" class="btn btn-danger" id="c-button">Delete</a>
+                        </ul>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">Special title treatment</h5>
+                        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                        <a href="#" class="btn btn-primary">Go somewhere</a>
                     </div>
                 </div>
             </div>
         </div>
-
-
     </main>
-
 </body>
 
 </html>
