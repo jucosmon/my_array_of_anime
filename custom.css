@@ -120,6 +120,8 @@ footer {
   color: #445D48;
 }
 
+/***** anime details *****/
+
 
 @media (min-width: 992px) {
   .dropdown:hover>.dropdown-menu {

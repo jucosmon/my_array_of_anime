@@ -30,7 +30,27 @@ $sqlCreateTable = "CREATE TABLE IF NOT EXISTS users (
                     date_of_birth DATE
                 )";
 if ($conn->query($sqlCreateTable) === TRUE) {
-    error_log("Table created successfully"); //  success message
+    error_log("Users table created successfully"); //  success message
+} else {
+    die("Error creating table: " . $conn->error);
+}
+
+$sqlAnimeTable = "CREATE TABLE IF NOT EXISTS animelist (
+    table_id int PRIMARY KEY AUTO_INCREMENT, 
+    anime_id int, 
+    username varchar(100) NOT NULL,
+    title varchar(100) NOT NULL, 
+   	description text, 
+    type varchar(50) ,
+    status varchar(50) , 
+    episodes int, 
+    CONSTRAINT fk_user_watchlist FOREIGN KEY (username)
+    REFERENCES users(username) ON DELETE CASCADE,
+    Category ENUM('to_watch', 'in_progress', 'finished') NOT NULL
+);";
+
+if ($conn->query($sqlAnimeTable) === TRUE) {
+    error_log("Anime list table created successfully"); //  success message
 } else {
     die("Error creating table: " . $conn->error);
 }

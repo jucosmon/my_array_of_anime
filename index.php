@@ -17,7 +17,7 @@ if ($jsonData && isset($jsonData['data'])) {
   $count = 0;
   foreach ($topAnime as $anime) {
     $displayAnime[] = [
-      'anime_id' => $anime['mal_id'],
+      'id' => $anime['mal_id'],
       'title' => $anime['title'],
       'url' => $anime['url'],
       'score' => $anime['score'],
@@ -54,7 +54,7 @@ $recommendationCount = 0;
 foreach ($recData['data'] as $recommendation) {
   foreach ($recommendation['entry'] as $entry) {
     $recommendationAnime[] = [
-      'anime_id' => $entry['mal_id'],
+      'id' => $entry['mal_id'],
       'title' => $entry['title'],
       'content' => $recommendation['content'],
       'image_url' => $entry['images']['jpg']['large_image_url']
@@ -165,22 +165,25 @@ foreach ($recData['data'] as $recommendation) {
             <h5 class="modal-title">Watchlist</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
-          <div class="modal-body">
-            <form action="#" method="post">
+          <form action="insertAnimeDb.php" method="POST">
+
+            <div class="modal-body">
+              <input type="hidden" name="animeID" id="animeIDInput" value="">
               <div class="form-floating">
-                <select name="watchlist-option" id="watchlist-option" class="form-select">
-                  <option value="To Watch">To Watch</option>
-                  <option value="In Progress">In Progress</option>
-                  <option value="Done Watching">Finished</option>
+                <select name="watchlistOption" id="watchlistOption" class="form-select">
+                  <option value="to_watch">To Watch</option>
+                  <option value="in_progress">In Progress</option>
+                  <option value="finished">Finished</option>
                 </select>
-                <label for="watchlist-option">Choose an option: </label>
+                <label for="watchlistOption">Choose an option: </label>
               </div>
-            </form>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary" id="c-button">Save changes</button>
-          </div>
+
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-primary" id="c-button">Save changes</button>
+            </div>
+          </form>
         </div>
       </div>
     </section>
@@ -203,7 +206,9 @@ foreach ($recData['data'] as $recommendation) {
               <?php echo $displayAnime[0]['title']; ?>
             </h1>
             <button class="btn btn-primary px-4 py-2 fs-5 mt-5" id="c-button" data-bs-toggle="modal"
-              data-bs-target="#watchlist-modal">Add to Watchlist</button>
+              data-bs-target="#watchlist-modal" data-animeID="<?php echo $displayAnime[0]['id']; ?>">Add to
+              Watchlist</i>
+            </button>
           </div>
         </div>
 
@@ -215,7 +220,9 @@ foreach ($recData['data'] as $recommendation) {
               <?php echo $displayAnime[1]['title']; ?>
             </h1>
             <button class="btn btn-primary px-4 py-2 fs-5 mt-5" id="c-button" data-bs-toggle="modal"
-              data-bs-target="#watchlist-modal">Add to Watchlist</button>
+              data-bs-target="#watchlist-modal" data-animeID="<?php echo $displayAnime[1]['id']; ?>">Add to
+              Watchlist</i>
+            </button>
           </div>
         </div>
         <div class="carousel-item c-item">
@@ -226,7 +233,9 @@ foreach ($recData['data'] as $recommendation) {
               <?php echo $displayAnime[2]['title']; ?>
             </h1>
             <button class="btn btn-primary px-4 py-2 fs-5 mt-5" id="c-button" data-bs-toggle="modal"
-              data-bs-target="#watchlist-modal">Add to Watchlist</button>
+              data-bs-target="#watchlist-modal" data-animeID="<?php echo $displayAnime[2]['id']; ?>">Add to
+              Watchlist</i>
+            </button>
           </div>
         </div>
       </div>
@@ -262,8 +271,14 @@ foreach ($recData['data'] as $recommendation) {
                     <?php echo substr($anime['synopsis'], 0, 100); ?>
                     <?php echo strlen($anime['synopsis']) > 100 ? '...' : ''; ?>
                   </p>
-                  <button class="btn btn-primary" id="c-button" data-bs-toggle="modal"
-                    data-bs-target="#watchlist-modal">Add to Watchlist</button>
+                  <div class="mt-auto d-flex justify-content-end">
+                    <a href="animeDetails.php?id=<?php echo $anime['id']; ?>" class="btn btn-primary me-2"
+                      id="c-button"><i class="fa-solid fa-eye" style="color: #ffffff;"></i></a>
+                    <button class="btn btn-primary" id="c-button" data-bs-toggle="modal" data-bs-target="#watchlist-modal"
+                      data-animeID="<?php echo $anime['id']; ?>">
+                      <i class=" fa-solid fa-bookmark" style="color: #f2f2f2;"></i>
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
@@ -293,8 +308,14 @@ foreach ($recData['data'] as $recommendation) {
                     <?php echo substr($anime2['content'], 0, 100); ?>
                     <?php echo strlen($anime2['content']) > 100 ? '...' : ''; ?>
                   </p>
-                  <button class="btn btn-primary" id="c-button" data-bs-toggle="modal"
-                    data-bs-target="#watchlist-modal">Add to Watchlist</button>
+                  <div class="mt-auto d-flex justify-content-end">
+                    <a href="animeDetails.php?id=<?php echo $anime2['id']; ?>" class="btn btn-primary me-2"
+                      id="c-button"><i class="fa-solid fa-eye" style="color: #ffffff;"></i></a>
+                    <button class="btn btn-primary" id="c-button" data-bs-toggle="modal" data-bs-target="#watchlist-modal"
+                      data-animeID="<?php echo $anime2['id']; ?>">
+                      <i class=" fa-solid fa-bookmark" style="color: #f2f2f2;"></i>
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
@@ -398,7 +419,24 @@ foreach ($recData['data'] as $recommendation) {
       </small>
     </div>
   </footer>
+  <!-- TRANSFERRING ID FROM THE PAGE TO THE MODAL KAY AG MODAL KAY NAAY SELECT OPTIONS RA PERO NEED SAD NATO AG ANIME ID NGA  IINPUT SA DATABASE -->
+  <script>
+    var myModal = document.getElementById('watchlist-modal');
+    myModal.addEventListener('show.bs.modal', function (event) {
+      var button = event.relatedTarget;
+      var animeID = button.getAttribute('data-animeID');
+      var modalInput = myModal.querySelector('#animeIDInput');
+      modalInput.value = animeID;
+    });
+    // Check if a PHP session variable containing an error message is set   
+    <?php if (isset($_SESSION['message'])): ?>
+      // Display an alert using JavaScript with the message from the PHP session
+      alert("<?php echo $_SESSION['message']; ?>");
+    <?php endif; ?>
+    // Clear the message from the session
+    <?php unset($_SESSION['message']); ?>
 
+  </script>
 </body>
 
 </html>

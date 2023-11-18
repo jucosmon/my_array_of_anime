@@ -1,3 +1,21 @@
+<?php
+session_start();
+include("db_connection.php"); // Include the file containing the database connection
+include("functions.php");
+
+$user_data = check_login($conn);
+$username = $user_data['username'];
+// Fetch data from the database
+$query = "SELECT * FROM animelist WHERE username = '$username' AND Category = 'in_progress' "; // Replace 'watchlist' with your table name
+$result = mysqli_query($conn, $query);
+
+// Check for errors in the query execution
+if (!$result) {
+    die("Query failed: " . mysqli_error($conn));
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -13,7 +31,7 @@
         integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-    <title>Home Page</title>
+    <title>In Progress</title>
 </head>
 
 <body>
@@ -105,9 +123,43 @@
                         </ul>
                     </div>
                     <div class="card-body">
-                        <h5 class="card-title">Special title treatment</h5>
-                        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
+                        <div class="container table-container">
+                            <div class="table-responsive">
+                                <table class="table table-striped table-bordered">
+                                    <thead class="thead-dark">
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Title</th>
+                                            <th>Type</th>
+                                            <th>Status</th>
+                                            <th>Episodes</th>
+                                            <th>Edit</th>
+                                            <th>Delete</th>
+                                            <!-- Add more table headers for other columns -->
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php
+                                        // Display data from the database in the table
+                                        while ($row = mysqli_fetch_assoc($result)) {
+                                            echo "<tr>";
+                                            echo "<td>" . $row['anime_id'] . "</td>";
+                                            echo "<td>" . $row['title'] . "</td>";
+                                            echo "<td>" . $row['type'] . "</td>";
+                                            echo "<td>" . $row['status'] . "</td>";
+                                            echo "<td>" . $row['episodes'] . "</td>";
+                                            // Edit button
+                                            echo "<td><a href='#?id=" . $row['anime_id'] . "' class='btn btn-warning'>Edit</a></td>";
+
+                                            // Delete button
+                                            echo "<td><a href='#?id=" . $row['anime_id'] . "' class='btn btn-danger'>Delete</a></td>";
+                                            echo "</tr>";
+                                        }
+                                        ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

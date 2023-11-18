@@ -5,39 +5,46 @@ include("functions.php"); //stores username data
 
 $user_data = check_login($conn);
 
+// Check if the 'id' parameter exists in the URL
+if (isset($_GET['id'])) {
+    // Get the anime ID from the URL query parameter
+    $animeID = $_GET['id'];
+    $animeDetailsUrl = "https://api.jikan.moe/v4/anime/$animeID";
 
-if (isset($_GET['searchname'])) {
-    $animeTitle = $_GET['searchname'];
-    $animeListUrl = 'https://api.jikan.moe/v4/anime';
-    $animeListResponse = file_get_contents($animeListUrl);
-    $animeList = json_decode($animeListResponse, true);
+    // Fetch data from the API endpoint
+    $animeDetailsResponse = file_get_contents($animeDetailsUrl);
 
-    $filteredAnime = array_filter($animeList['data'], function ($anime) use ($animeTitle) {
-        return isset($anime['title']) && stripos($anime['title'], $animeTitle) !== false;
-    });
+    if ($animeDetailsResponse !== false) {
+        // Decode JSON response
+        $animeDetails = json_decode($animeDetailsResponse, true);
 
-    $resultArray = []; // Initialize an array to store filtered anime
+        if ($animeDetails && isset($animeDetails['data'])) {
+            // Extract and store attributes from the data
+            $id = $animeDetails['data']['mal_id'];
+            $title = $animeDetails['data']['title'];
+            $synopsis = $animeDetails['data']['synopsis'];
+            $imageUrl = $animeDetails['data']['images']['jpg']['image_url'];
+            $type = $animeDetails['data']['type'];
+            $episodes = $animeDetails['data']['episodes'];
+            $status = $animeDetails['data']['status'];
+            // Extract genres
+            $genres = [];
+            foreach ($animeDetails['data']['genres'] as $genre) {
+                $genres[] = $genre['name'];
+            }
+            $genresList = implode(", ", $genres);
 
-    if (empty($filteredAnime)) {
-        echo '<p>No results found.</p>';
-    } else {
-        foreach ($filteredAnime as $anime) {
-            $resultArray[] = [
-                'title' => $anime['title'],
-                'id' => $anime['mal_id'],
-                'episodes' => $anime['episodes'],
-                'rating' => $anime['rating'],
-                'synopsis' => $anime['synopsis'],
-                'image_url' => $anime['images']['jpg']['large_image_url'],
-                'genres' => (isset($anime['genres']) && is_array($anime['genres'])) ?
-                    implode(', ', array_column($anime['genres'], 'name')) :
-                    ''
-            ];
+        } else {
+            echo "Anime details not found.";
         }
+    } else {
+        echo "Failed to fetch anime details from the API.";
     }
 
-}
 
+} else {
+    echo '<p>No anime ID specified.</p>';
+}
 ?>
 
 <!DOCTYPE html>
@@ -55,12 +62,12 @@ if (isset($_GET['searchname'])) {
         integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-    <title>Search</title>
+    <title>Details</title>
 </head>
 
 <body>
 
-    <nav class="navbar navbar-expand-lg fixed-top">
+    <nav class="navbar navbar-expand-lg">
         <div class="container">
             <a class="navbar-brand text-uppercase active" href="index.php"><i class="fa-solid fa-layer-group"
                     style="color: #ffffff;"></i> My
@@ -125,10 +132,7 @@ if (isset($_GET['searchname'])) {
             </div>
         </div>
     </nav>
-
     <main>
-
-        <!-- mao nig modal  -->
         <section class="modal fade" tabindex="-1" id="watchlist-modal">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -158,60 +162,42 @@ if (isset($_GET['searchname'])) {
                 </div>
             </div>
         </section>
+        <div class="container h-100 my-5">
+            <div class="row no-gutters">
+                <div class="col-lg-4">
+                    <img src="<?php echo $imageUrl; ?>" class="card-img img-fluid anime-img" alt="Anime Image">
+                </div>
+                <div class="col-lg-8">
+                    <div class="card-body my-3">
+                        <h2 class="card-title">
+                            <?php echo $title; ?>
+                        </h2>
+                        <p class="card-text-lg text-md">Genre:
+                            <?php echo $genresList; ?>
+                        </p>
+                        <p class="card-text-lg text-md">
+                            <?php echo $synopsis; ?>
+                        </p>
+                        <p class="card-text-lg text-md">Type:
+                            <?php echo $type; ?>
+                        </p>
+                        <p class="card-text-lg text-md">Status:
+                            <?php echo $status; ?>
+                        </p>
+                        <p class="card-text-lg text-md">Episodes:
+                            <?php echo $episodes; ?>
+                        </p>
+                        <div class="mt-auto d-flex justify-content-end">
 
-
-        <!-- trending section -->
-        <section id="searchresults" class="pt-md-5">
-            <div class="container">
-                <h2 class=" text-center my-5">Search Results</h2>
-                <?php if (empty($filteredAnime)) { ?>
-                    <p class="text-center my-5">No results found</p>
-                <?php } ?>
-            </div>
-            <div class="container">
-                <div class="row">
-                    <?php foreach ($resultArray as $anime): ?>
-                        <div class="col-lg-6 mb-4">
-                            <div class="card h-100 c-card">
-                                <div style="height: 200px; overflow: hidden;">
-                                    <img src="<?php echo $anime['image_url']; ?>" class="card-img-top img-fluid"
-                                        style="height: 100%; object-fit: cover;" alt="Anime Image">
-                                </div>
-                                <div class="card-body">
-                                    <h5 class="card-title">
-                                        <?php echo $anime['title']; ?>
-                                    </h5>
-                                    <p class="card-text">Genre:
-                                        <?php echo $anime['genres']; ?>
-                                    </p>
-                                    <p class="card-text" style="height: 80px; overflow: hidden;">
-                                        <?php echo substr($anime['synopsis'], 0, 200); ?>
-                                        <?php echo strlen($anime['synopsis']) > 200 ? '...' : ''; ?>
-                                    </p>
-                                    <p class="card-text">Episodes:
-                                        <?php echo $anime['episodes']; ?>
-                                    </p>
-                                    <p class="card-text">Rating:
-                                        <?php echo $anime['rating']; ?>
-                                    </p>
-                                    <div class="mt-auto d-flex justify-content-end">
-                                        <a href="animeDetails.php?id=<?php echo $anime['id']; ?>"
-                                            class="btn btn-primary me-2" id="c-button"><i class="fa-solid fa-eye"
-                                                style="color: #ffffff;"></i></a>
-                                        <button class="btn btn-primary" id="c-button" data-bs-toggle="modal"
-                                            data-bs-target="#watchlist-modal" data-animeID="<?php echo $id; ?>">
-                                            <i class=" fa-solid fa-bookmark" style="color: #f2f2f2;"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
+                            <button class="btn btn-primary" id="c-button" data-bs-toggle="modal"
+                                data-bs-target="#watchlist-modal" data-animeID="<?php echo $id; ?>">
+                                <i class=" fa-solid fa-bookmark" style="color: #f2f2f2;"></i>
+                            </button>
                         </div>
-                    <?php endforeach; ?>
+                    </div>
                 </div>
             </div>
-
-
-        </section>
+        </div>
 
     </main>
 
@@ -235,5 +221,7 @@ if (isset($_GET['searchname'])) {
     </script>
 
 </body>
+
+
 
 </html>
