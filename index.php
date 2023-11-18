@@ -2,10 +2,75 @@
 session_start();
 include("db_connection.php"); // Include the file containing the database connection
 include("functions.php");
-
+// checking if nalog in naba ang user
 $user_data = check_login($conn);
 
+//getting top anime database using jikan api and extracting it
+$url = 'https://api.jikan.moe/v4/top/anime';
+$data = file_get_contents($url);
+$jsonData = json_decode($data, true);
+
+if ($jsonData && isset($jsonData['data'])) {
+  $topAnime = $jsonData['data'];
+
+  $displayAnime = [];
+  $count = 0;
+  foreach ($topAnime as $anime) {
+    $displayAnime[] = [
+      'anime_id' => $anime['mal_id'],
+      'title' => $anime['title'],
+      'url' => $anime['url'],
+      'score' => $anime['score'],
+      'episodes' => $anime['episodes'],
+      'status' => $anime['status'],
+      'synopsis' => $anime['synopsis'],
+      'image_url' => $anime['images']['jpg']['large_image_url']
+
+    ];
+    //limitahan ug 6 kay lain sad ibutang 200 results, taas ra kaaayo
+    $count++;
+    if ($count >= 6) {
+      break;
+    }
+  }
+} else {
+  echo 'Failed to fetch data.';
+}
+
+//getting recommendations anime data using jikan api 
+$urlrec = "https://api.jikan.moe/v4/recommendations/anime";
+$recjson = file_get_contents($urlrec);
+
+// Decode JSON data
+$recData = json_decode($recjson, true);
+
+// Create an array to store recommendation anime data
+$recommendationAnime = [];
+
+// Counter from 0 to limit to 15 recommendations
+$recommendationCount = 0;
+
+// Extract anime titles and image URLs (limit to 15 recommendations) ug i store sa array para magamit sa ubos code
+foreach ($recData['data'] as $recommendation) {
+  foreach ($recommendation['entry'] as $entry) {
+    $recommendationAnime[] = [
+      'anime_id' => $entry['mal_id'],
+      'title' => $entry['title'],
+      'content' => $recommendation['content'],
+      'image_url' => $entry['images']['jpg']['large_image_url']
+    ];
+
+    // Increment counter
+    $recommendationCount++;
+
+    // Break the loop after storing 15 anime details sa recommendations
+    if ($recommendationCount === 15) {
+      break 2; // Break both foreach loops since 2 forloops angin sa structure sa data
+    }
+  }
+}
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -92,6 +157,8 @@ $user_data = check_login($conn);
   </nav>
 
   <main>
+
+    <!-- mao nig modal  -->
     <section class="modal fade" tabindex="-1" id="watchlist-modal">
       <div class="modal-dialog">
         <div class="modal-content">
@@ -118,6 +185,8 @@ $user_data = check_login($conn);
         </div>
       </div>
     </section>
+
+    <!-- ag carousel sa babaw homepage -->
     <section id="header-carousel" class="carousel slide" data-bs-ride="carousel">
       <div class="carousel-indicators">
         <button type="button" data-bs-target="#header-carousel" data-bs-slide-to="0" class="active" aria-current="true"
@@ -125,30 +194,38 @@ $user_data = check_login($conn);
         <button type="button" data-bs-target="#header-carousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
         <button type="button" data-bs-target="#header-carousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
       </div>
+
       <div class="carousel-inner">
         <div class="carousel-item active c-item">
-          <img src="images/header4.jpg" class="d-block w-100 c-img" alt="...">
+          <img src="<?php echo $displayAnime[0]['image_url']; ?>" class="d-block w-100 c-img" alt="...">
           <div class="carousel-caption top-0 mt-4">
             <p class="fs-3 mt-5 text-uppercase">Trending</p>
-            <h1 class="display-1 fw-bolder text-capitalize">Attack on Titan</h1>
+            <h1 class="display-1 fw-bolder text-capitalize">
+              <?php echo $displayAnime[0]['title']; ?>
+            </h1>
+            <button class="btn btn-primary px-4 py-2 fs-5 mt-5" id="c-button" data-bs-toggle="modal"
+              data-bs-target="#watchlist-modal">Add to Watchlist</button>
+          </div>
+        </div>
+
+        <div class="carousel-item c-item">
+          <img src="<?php echo $displayAnime[1]['image_url']; ?>" class="d-block w-100 c-img" alt="...">
+          <div class="carousel-caption top-0 mt-4">
+            <p class="fs-3 mt-5 text-uppercase">Trending</p>
+            <h1 class="display-1 fw-bolder text-capitalize">
+              <?php echo $displayAnime[1]['title']; ?>
+            </h1>
             <button class="btn btn-primary px-4 py-2 fs-5 mt-5" id="c-button" data-bs-toggle="modal"
               data-bs-target="#watchlist-modal">Add to Watchlist</button>
           </div>
         </div>
         <div class="carousel-item c-item">
-          <img src="images/header2.jpg" class="d-block w-100 c-img" alt="...">
+          <img src="<?php echo $displayAnime[2]['image_url']; ?>" class="d-block w-100 c-img" alt="...">
           <div class="carousel-caption top-0 mt-4">
             <p class="fs-3 mt-5 text-uppercase">Trending</p>
-            <h1 class="display-1 fw-bolder text-capitalize">One Piece</h1>
-            <button class="btn btn-primary px-4 py-2 fs-5 mt-5" id="c-button" data-bs-toggle="modal"
-              data-bs-target="#watchlist-modal">Add to Watchlist</button>
-          </div>
-        </div>
-        <div class="carousel-item c-item">
-          <img src="images/header3.jpg" class="d-block w-100 c-img" alt="...">
-          <div class="carousel-caption top-0 mt-4">
-            <p class="fs-3 mt-5 text-uppercase">Trending</p>
-            <h1 class="display-1 fw-bolder text-capitalize">Naruto</h1>
+            <h1 class="display-1 fw-bolder text-capitalize">
+              <?php echo $displayAnime[2]['title']; ?>
+            </h1>
             <button class="btn btn-primary px-4 py-2 fs-5 mt-5" id="c-button" data-bs-toggle="modal"
               data-bs-target="#watchlist-modal">Add to Watchlist</button>
           </div>
@@ -164,108 +241,71 @@ $user_data = check_login($conn);
       </button>
     </section>
 
-
+    <!-- trending section -->
     <section id="trending" class="pt-md-5">
       <h2 class="text-center my-5">Trending</h2>
       <div class="container">
         <div class="row gy-3">
-          <div class="col-lg-4">
-            <div class="card h-100 c-card">
-              <img src=" images/header4.jpg" class="card-img-top" alt="...">
-              <div class="card-body">
-                <h5 class="card-title">FairyTale</h5>
-                <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Possimus aspernatur dolor
-                  sequi sit nisi fuga laborum dignissimos.</p>
-                <button class="btn btn-primary" id="c-button" data-bs-toggle="modal"
-                  data-bs-target="#watchlist-modal">Add to
-                  Watchlist</button>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-4">
-            <div class="card  h-100 c-card">
-              <img src=" images/header2.jpg" class="card-img-top" alt="...">
-              <div class="card-body">
-                <h5 class="card-title">One Piece</h5>
-                <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Possimus aspernatur dolor
-                  sequi sit nisi fuga laborum dignissimos.</p>
-                <button class="btn btn-primary" id="c-button" data-bs-toggle="modal"
-                  data-bs-target="#watchlist-modal">Add to
-                  Watchlist</button>
-              </div>
-            </div>
 
-          </div>
-          <div class="col-lg-4">
-            <div class="card h-100 c-card">
-              <img src=" images/header3.jpg" class="card-img-top" alt="...">
-              <div class="card-body">
-                <h5 class="card-title">Naruto</h5>
-                <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Possimus aspernatur dolor
-                  sequi sit nisi fuga laborum dignissimos.</p>
-                <button class="btn btn-primary" id="c-button" data-bs-toggle="modal"
-                  data-bs-target="#watchlist-modal">Add to
-                  Watchlist</button>
+          <!-- displaying sa card depende ug pila ag sulod s displayAnime -->
+          <?php foreach ($displayAnime as $anime): ?>
+            <div class="col-lg-4">
+              <div class="card h-100 c-card">
+                <div style="height: 200px; overflow: hidden;">
+                  <img src="<?php echo $anime['image_url']; ?>" class="card-img-top img-fluid card-image"
+                    style="height: 100%; object-fit: cover;" alt="Anime Image">
+                </div>
+                <div class="card-body">
+                  <h5 class="card-title">
+                    <?php echo $anime['title']; ?>
+                  </h5>
+                  <p class="card-text" style="height: 90px; overflow: hidden;">
+                    <?php echo substr($anime['synopsis'], 0, 100); ?>
+                    <?php echo strlen($anime['synopsis']) > 100 ? '...' : ''; ?>
+                  </p>
+                  <button class="btn btn-primary" id="c-button" data-bs-toggle="modal"
+                    data-bs-target="#watchlist-modal">Add to Watchlist</button>
+                </div>
               </div>
             </div>
-
-          </div>
+          <?php endforeach; ?>
         </div>
       </div>
-
-
     </section>
+
+    <!-- recommendations section -->
     <section id="recommendations" class="pt-md-5">
       <h2 class="text-center my-5">Recommendations</h2>
       <div class="container">
-        <div class="row">
-          <div class="col-lg-4">
-            <div class="card h-100 c-card">
-              <img src=" images/header4.jpg" class="card-img-top" alt="...">
-              <div class="card-body">
-                <h5 class="card-title">FairyTale</h5>
-                <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Possimus aspernatur dolor
-                  sequi sit nisi fuga laborum dignissimos.</p>
-                <button class="btn btn-primary" id="c-button" data-bs-toggle="modal"
-                  data-bs-target="#watchlist-modal">Add to
-                  Watchlist</button>
+        <div class="row gy-3">
+          <!-- displaying sa card depende ug pila ag sulod s recommendationAnime -->
+          <?php foreach ($recommendationAnime as $anime2): ?>
+            <div class="col-lg-4">
+              <div class="card h-100 c-card">
+                <div style="height: 200px; overflow: hidden;">
+                  <img src="<?php echo $anime2['image_url']; ?>" class="card-img-top img-fluid card-image"
+                    style="height: 100%; object-fit: cover;" alt="Anime Image">
+                </div>
+                <div class="card-body">
+                  <h5 class="card-title">
+                    <?php echo $anime2['title']; ?>
+                  </h5>
+                  <p class="card-text" style="height: 90px; overflow: hidden;">
+                    <?php echo substr($anime2['content'], 0, 100); ?>
+                    <?php echo strlen($anime2['content']) > 100 ? '...' : ''; ?>
+                  </p>
+                  <button class="btn btn-primary" id="c-button" data-bs-toggle="modal"
+                    data-bs-target="#watchlist-modal">Add to Watchlist</button>
+                </div>
               </div>
             </div>
-          </div>
-          <div class="col-lg-4">
-            <div class="card h-100 c-card">
-              <img src=" images/header2.jpg" class="card-img-top" alt="...">
-              <div class="card-body">
-                <h5 class="card-title">One Piece</h5>
-                <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Possimus aspernatur dolor
-                  sequi sit nisi fuga laborum dignissimos.</p>
-                <button class="btn btn-primary" id="c-button" data-bs-toggle="modal"
-                  data-bs-target="#watchlist-modal">Add to
-                  Watchlist</button>
-              </div>
-            </div>
+          <?php endforeach; ?>
 
-          </div>
-          <div class="col-lg-4">
-            <div class="card h-100 c-card">
-              <img src=" images/header3.jpg" class="card-img-top" alt="...">
-              <div class="card-body">
-                <h5 class="card-title">Naruto</h5>
-                <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Possimus aspernatur dolor
-                  sequi sit nisi fuga laborum dignissimos.</p>
-                <button class="btn btn-primary" id="c-button" data-bs-toggle="modal"
-                  data-bs-target="#watchlist-modal">Add to
-                  Watchlist</button>
-              </div>
-            </div>
-
-          </div>
         </div>
       </div>
-
-
     </section>
 
+    <!-- facts section-->
     <section id="facts" class="py-md-5">
       <h2 class="my-5 text-center">Facts</h2>
       <div class="container">
