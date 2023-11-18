@@ -93,7 +93,7 @@ foreach ($recData['data'] as $recommendation) {
 
   <nav class="navbar navbar-expand-lg fixed-top">
     <div class="container">
-      <a class="navbar-brand text-uppercase" href="index.php"><i class="fa-solid fa-layer-group"
+      <a class="navbar-brand text-uppercase active" href="index.php"><i class="fa-solid fa-layer-group"
           style="color: #ffffff;"></i> My
         Array of Anime</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
@@ -109,11 +109,8 @@ foreach ($recData['data'] as $recommendation) {
           <li class="nav-item">
             <a class="nav-link " href="index.php#recommendations">Recommendations</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link " href="index.php#facts">Facts</a>
-          </li>
           <li class="nav-item ">
-            <a class="nav-link" href="index.php#">About</a>
+            <a class="nav-link" href="index.php#about">About</a>
           </li>
         </ul>
 
@@ -306,8 +303,8 @@ foreach ($recData['data'] as $recommendation) {
     </section>
 
     <!-- facts section-->
-    <section id="facts" class="py-md-5">
-      <h2 class="my-5 text-center">Facts</h2>
+    <section id="about" class="py-md-5">
+      <h2 class="my-5 text-center">About us</h2>
       <div class="container">
         <div class="accordion w-75 mx-auto" id="accordionExample">
           <div class="accordion-item">
