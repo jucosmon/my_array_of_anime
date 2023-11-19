@@ -188,7 +188,8 @@ if (isset($_GET['id'])) {
                             <?php echo $episodes; ?>
                         </p>
                         <div class="mt-auto d-flex justify-content-end">
-
+                            <a href="insertFavorites.php?id=<?php echo $id; ?>" class="btn btn-primary me-2"
+                                id="c-button"><i class="fa-solid fa-heart" style="color: #ffffff;"></i></a>
                             <button class="btn btn-primary" id="c-button" data-bs-toggle="modal"
                                 data-bs-target="#watchlist-modal" data-animeID="<?php echo $id; ?>">
                                 <i class=" fa-solid fa-bookmark" style="color: #f2f2f2;"></i>

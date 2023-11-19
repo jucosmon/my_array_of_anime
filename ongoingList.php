@@ -13,6 +13,10 @@ $result = mysqli_query($conn, $query);
 if (!$result) {
     die("Query failed: " . mysqli_error($conn));
 }
+if (isset($_SESSION['message'])) {
+    echo "<script>alert('" . $_SESSION['message'] . "');</script>";
+    unset($_SESSION['message']); // Clear the session message
+}
 
 ?>
 
@@ -125,39 +129,58 @@ if (!$result) {
                     <div class="card-body">
                         <div class="container table-container">
                             <div class="table-responsive">
-                                <table class="table table-striped table-bordered">
-                                    <thead class="thead-dark">
-                                        <tr>
-                                            <th>ID</th>
-                                            <th>Title</th>
-                                            <th>Type</th>
-                                            <th>Status</th>
-                                            <th>Episodes</th>
-                                            <th>Edit</th>
-                                            <th>Delete</th>
-                                            <!-- Add more table headers for other columns -->
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php
-                                        // Display data from the database in the table
-                                        while ($row = mysqli_fetch_assoc($result)) {
-                                            echo "<tr>";
-                                            echo "<td>" . $row['anime_id'] . "</td>";
-                                            echo "<td>" . $row['title'] . "</td>";
-                                            echo "<td>" . $row['type'] . "</td>";
-                                            echo "<td>" . $row['status'] . "</td>";
-                                            echo "<td>" . $row['episodes'] . "</td>";
-                                            // Edit button
-                                            echo "<td><a href='#?id=" . $row['anime_id'] . "' class='btn btn-warning'>Edit</a></td>";
+                                <h2 class="my-3">In Progress</h2>
+                                <?php
+                                // Check if the result set is empty
+                                if (mysqli_num_rows($result) == 0) {
+                                    echo "<p>No list yet.</p>";
+                                } else {
+                                    ?>
+                                    <table class="table table-striped table-bordered">
+                                        <thead class="thead-dark">
+                                            <tr>
+                                                <th>View</th>
+                                                <th>Favorite</th>
+                                                <th>ID</th>
+                                                <th>Title</th>
+                                                <th>Type</th>
+                                                <th>Status</th>
+                                                <th>Episodes</th>
 
-                                            // Delete button
-                                            echo "<td><a href='#?id=" . $row['anime_id'] . "' class='btn btn-danger'>Delete</a></td>";
-                                            echo "</tr>";
-                                        }
-                                        ?>
-                                    </tbody>
-                                </table>
+                                                <th>To Watch</th>
+                                                <th>Finished</th>
+                                                <th>Delete</th>
+                                                <!-- Add more table headers for other columns -->
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php
+                                            // Display data from the database in the table
+                                            while ($row = mysqli_fetch_assoc($result)) {
+                                                echo "<tr>";
+                                                //view button
+                                                echo "<td><a href='animeDetails.php?id=" . $row['anime_id'] . "' class='btn btn-primary me-2' id='c-button'><i class='fa-solid fa-eye' style='color: #ffffff;'></i></a></td>";
+                                                echo "<td><a href='insertFavorites.php?id=" . $row['anime_id'] . "' class='btn btn-primary me-2' id='c-button'><i class='fa-solid fa-heart' style='color: #ffffff;'></i></a></td>";
+                                                echo "<td>" . $row['anime_id'] . "</td>";
+                                                echo "<td>" . $row['title'] . "</td>";
+                                                echo "<td>" . $row['type'] . "</td>";
+                                                echo "<td>" . $row['status'] . "</td>";
+                                                echo "<td>" . $row['episodes'] . "</td>";
+                                                // move to in progress
+                                                echo "<td><a href='updateAnime.php?id=" . $row['anime_id'] . "&prev=in_progress&next=to_watch' class='btn btn-warning me-2' id='c-button'><i class='fa-solid fa-backward' style='color: #ffffff;'></i></a></td>";
+                                                // move to finished
+                                                echo "<td><a href='updateAnime.php?id=" . $row['anime_id'] . "&prev=in_progress&next=finished' class='btn btn-warning me-2' id='c-button'><i class='fa-regular fa-square-check' style='color: #ffffff;'></i></a></td>";
+                                                //delete
+                                                echo "<td><a href='deleteAnime.php?id=" . $row['anime_id'] . "&confirm=true' class='btn btn-danger me-2' onclick='return confirm(\"Are you sure you want to delete?\")'><i class='fa-solid fa-trash' style='color: #ffffff;'></i></a></td>";
+
+                                                echo "</tr>";
+                                            }
+                                            ?>
+                                        </tbody>
+                                    </table>
+                                    <?php
+                                }
+                                ?>
                             </div>
                         </div>
                     </div>

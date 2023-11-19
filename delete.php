@@ -4,16 +4,18 @@ include("db_connection.php"); // Include the file containing the database connec
 include("functions.php");
 
 $user_data = check_login($conn);
-
 $username = $user_data['username'];
 
-$query = "delete from users where username='$username'";
-$result = mysqli_query($conn, $query);
+if (isset($_GET['confirm']) && $_GET['confirm'] === 'true') {
 
-if ($result) {
-    header("Location: signup.php");
-    die;
-
+    $query = "delete from users where username='$username'";
+    $result = mysqli_query($conn, $query);
+    if ($result) {
+        header("Location: signup.php");
+        die;
+    } else {
+        die("Error occurred during deletion.");
+    }
 } else {
-    die;
+    die("Canceled deletion");
 }

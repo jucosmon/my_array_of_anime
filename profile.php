@@ -109,7 +109,9 @@ $user_data = check_login($conn);
                     </p>
                     <div class="button-container">
                         <a href="editProfile.php" class="btn btn-secondary" id="c-button">Edit</a>
-                        <a href="delete.php" class="btn btn-danger" id="c-button">Delete</a>
+                        <a href='delete.php?confirm=true' class='btn btn-danger' id="c-button"
+                            onclick='return confirm("Are you sure you want to delete?")'>Delete</a>
+
                     </div>
                 </div>
             </div>

@@ -13,6 +13,10 @@ $result = mysqli_query($conn, $query);
 if (!$result) {
     die("Query failed: " . mysqli_error($conn));
 }
+if (isset($_SESSION['message'])) {
+    echo "<script>alert('" . $_SESSION['message'] . "');</script>";
+    unset($_SESSION['message']); // Clear the session message
+}
 
 ?>
 
@@ -35,6 +39,7 @@ if (!$result) {
 </head>
 
 <body>
+
     <nav class="navbar navbar-expand-lg fixed-top">
         <div class="container">
             <a class="navbar-brand text-uppercase active" href="index.php"><i class="fa-solid fa-layer-group"
@@ -136,6 +141,7 @@ if (!$result) {
                                         <thead class="thead-dark">
                                             <tr>
                                                 <th>View</th>
+                                                <th>Favorite</th>
                                                 <th>ID</th>
                                                 <th>Title</th>
                                                 <th>Type</th>
@@ -155,17 +161,17 @@ if (!$result) {
                                                 echo "<tr>";
                                                 //view button
                                                 echo "<td><a href='animeDetails.php?id=" . $row['anime_id'] . "' class='btn btn-primary me-2' id='c-button'><i class='fa-solid fa-eye' style='color: #ffffff;'></i></a></td>";
-
+                                                echo "<td><a href='insertFavorites.php?id=" . $row['anime_id'] . "' class='btn btn-primary me-2' id='c-button'><i class='fa-solid fa-heart' style='color: #ffffff;'></i></a></td>";
                                                 echo "<td>" . $row['anime_id'] . "</td>";
                                                 echo "<td>" . $row['title'] . "</td>";
                                                 echo "<td>" . $row['type'] . "</td>";
                                                 echo "<td>" . $row['status'] . "</td>";
                                                 echo "<td>" . $row['episodes'] . "</td>";
-                                                // Edit button
-                                                echo "<td><a href='#?id=" . $row['anime_id'] . "' class='btn btn-warning me-2' id='c-button'><i class='fa-solid fa-square-poll-horizontal' style='color: #ffffff;'></i></a></td>";
-                                                // Delete button
-                                                echo "<td><a href='#?id=" . $row['anime_id'] . "' class='btn btn-warning me-2' id='c-button'><i class='fa-regular fa-square-check' style='color: #ffffff;'></i></a></td>";
-
+                                                // move to in progress
+                                                echo "<td><a href='updateAnime.php?id=" . $row['anime_id'] . "&prev=to_watch&next=in_progress' class='btn btn-warning me-2' id='c-button'><i class='fa-solid fa-square-poll-horizontal' style='color: #ffffff;'></i></a></td>";
+                                                // move to finished
+                                                echo "<td><a href='updateAnime.php?id=" . $row['anime_id'] . "&prev=to_watch&next=finished' class='btn btn-warning me-2' id='c-button'><i class='fa-regular fa-square-check' style='color: #ffffff;'></i></a></td>";
+                                                //delete
                                                 echo "<td><a href='deleteAnime.php?id=" . $row['anime_id'] . "&confirm=true' class='btn btn-danger me-2' onclick='return confirm(\"Are you sure you want to delete?\")'><i class='fa-solid fa-trash' style='color: #ffffff;'></i></a></td>";
 
                                                 echo "</tr>";

@@ -45,12 +45,30 @@ $sqlAnimeTable = "CREATE TABLE IF NOT EXISTS animelist (
     status varchar(50) , 
     episodes int, 
     CONSTRAINT fk_user_watchlist FOREIGN KEY (username)
-    REFERENCES users(username) ON DELETE CASCADE,
+    REFERENCES users(username) ON DELETE CASCADE  ON UPDATE CASCADE,
     Category ENUM('to_watch', 'in_progress', 'finished') NOT NULL
 );";
 
 if ($conn->query($sqlAnimeTable) === TRUE) {
     error_log("Anime list table created successfully"); //  success message
+} else {
+    die("Error creating table: " . $conn->error);
+}
+
+$sqlFavTable = "CREATE TABLE IF NOT EXISTS favorites (
+    table_id int PRIMARY KEY AUTO_INCREMENT, 
+    anime_id int, 
+    username varchar(100) NOT NULL,
+    title varchar(100) NOT NULL, 
+   	description text, 
+    type varchar(50) ,
+    status varchar(50) , 
+    episodes int, CONSTRAINT fk_user_favorites FOREIGN KEY (username)
+    REFERENCES users(username) ON DELETE CASCADE  ON UPDATE CASCADE
+);";
+
+if ($conn->query($sqlFavTable) === TRUE) {
+    error_log("Favorites list table created successfully"); //  success message
 } else {
     die("Error creating table: " . $conn->error);
 }

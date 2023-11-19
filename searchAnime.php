@@ -195,11 +195,14 @@ if (isset($_GET['searchname'])) {
                                         <?php echo $anime['rating']; ?>
                                     </p>
                                     <div class="mt-auto d-flex justify-content-end">
+                                        <a href="insertFavorites.php?id=<?php echo $anime['id']; ?>"
+                                            class="btn btn-primary me-2" id="c-button"><i class="fa-solid fa-heart"
+                                                style="color: #ffffff;"></i></a>
                                         <a href="animeDetails.php?id=<?php echo $anime['id']; ?>"
                                             class="btn btn-primary me-2" id="c-button"><i class="fa-solid fa-eye"
                                                 style="color: #ffffff;"></i></a>
                                         <button class="btn btn-primary" id="c-button" data-bs-toggle="modal"
-                                            data-bs-target="#watchlist-modal" data-animeID="<?php echo $id; ?>">
+                                            data-bs-target="#watchlist-modal" data-animeID="<?php echo $anime['id']; ?>">
                                             <i class=" fa-solid fa-bookmark" style="color: #f2f2f2;"></i>
                                         </button>
                                     </div>

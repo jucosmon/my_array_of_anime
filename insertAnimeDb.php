@@ -62,9 +62,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
         } else {
             $_SESSION['message'] = "Anime already exists in the database";
-
             error_log("Anime already exist on database"); //if invalid ang username
-
         }
 
         // Redirect the user back to the previous page after processing
