@@ -339,17 +339,19 @@ foreach ($recData['data'] as $recommendation) {
             <h2 class="accordion-header" id="headingOne">
               <button class="accordion-button" id="c-button" type="button" data-bs-toggle="collapse"
                 data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                Accordion Item #1
+                My Array of Anime
               </button>
             </h2>
             <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
               data-bs-parent="#accordionExample">
               <div class="accordion-body">
-                <strong>This is the first item's accordion body.</strong> It is shown by default, until the collapse
-                plugin adds the appropriate classes that we use to style each element. These classes control the overall
-                appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with
-                custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go
-                within the <code>.accordion-body</code>, though the transition does limit overflow.
+                <strong>Introducing a user-friendly web app for anime
+                  enthusiasts.</strong> Discover and explore information about any anime you desire, add them to your
+                watchlist,
+                and track your progress. Sign up or log in to access the features. With our platform, you can easily
+                keep track of the anime series you're watching, create a collection of your favorites, and stay
+                organized. Dive into the world of anime and elevate your watching experience with our user-friendly
+                interface.
               </div>
             </div>
           </div>
@@ -357,17 +359,18 @@ foreach ($recData['data'] as $recommendation) {
             <h2 class="accordion-header" id="headingTwo">
               <button class="accordion-button collapsed" id="c-button" type="button" data-bs-toggle="collapse"
                 data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                Accordion Item #2
+                Developers
               </button>
             </h2>
             <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
               data-bs-parent="#accordionExample">
               <div class="accordion-body">
-                <strong>This is the second item's accordion body.</strong> It is hidden by default, until the collapse
-                plugin adds the appropriate classes that we use to style each element. These classes control the overall
-                appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with
-                custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go
-                within the <code>.accordion-body</code>, though the transition does limit overflow.
+                <strong>Strawberry-1</strong>
+                <ul>
+                  <li>Zachary Albert Legaria</li>
+                  <li>Jelah Marie Dango</li>
+                  <li>Rezelle June Udtohan</li>
+                </ul>
               </div>
             </div>
           </div>
@@ -375,17 +378,23 @@ foreach ($recData['data'] as $recommendation) {
             <h2 class="accordion-header" id="headingThree">
               <button class="accordion-button collapsed" id="c-button" type="button" data-bs-toggle="collapse"
                 data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                Accordion Item #3
+                Why our name is My Array of Anime?
               </button>
             </h2>
             <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree"
               data-bs-parent="#accordionExample">
               <div class="accordion-body">
-                <strong>This is the third item's accordion body.</strong> It is hidden by default, until the collapse
-                plugin adds the appropriate classes that we use to style each element. These classes control the overall
-                appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with
-                custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go
-                within the <code>.accordion-body</code>, though the transition does limit overflow.
+                Our website gets its name from the coding term <strong>"Array,"</strong> which represents a collection
+                of elements.
+                <code>My Array of Anime</code> focuses on providing a comprehensive watchlist experience for anime
+                fans. Similar to
+                how elements are organized efficiently in coding arrays, our platform allows users to create and manage
+                personalized watchlists for anime series. We bring together the organizational aspect of coding with the
+                captivating world of anime with the name of our website. The name <code>"My Array of Anime"</code>
+                reflects our
+                passion in <code>coding</code> and anime content.
+
+
               </div>
             </div>
           </div>
