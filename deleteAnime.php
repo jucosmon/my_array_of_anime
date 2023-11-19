@@ -14,7 +14,7 @@ if (isset($_GET['id']) && isset($_GET['confirm']) && $_GET['confirm'] === 'true'
     $result = mysqli_query($conn, $query);
 
     if ($result) {
-        header("Location: towatchlist.php");
+        header('Location: ' . $_SERVER['HTTP_REFERER']);
         exit;
     } else {
         die("Error occurred during deletion.");
